@@ -1,9 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import App from './App';
+import Calculator from '../src/containers/Calculator/calculator';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('App', () => {
+  let wrapper;
+  beforeEach(() => wrapper = shallow(<App />));
+  it("should render correctle",()=>{
+      expect(wrapper).toMatchSnapshot()
+  })
+  it('should render a <div />', () => {
+    expect(wrapper.find('div').length).toEqual(1);
+  });
+
+  it('should render the Calculator Component', () => {
+    expect(wrapper.containsMatchingElement(<Calculator />)).toEqual(true);
+  });
 });
